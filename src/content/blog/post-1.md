@@ -2,7 +2,7 @@
 title: "Whose Slave Are You? Understanding Romans 6:16"
 description: "Romans 6:16 reminds us we are never truly neutral—we serve something. Learn what it means to be a slave to righteousness and how obedience to God leads to true freedom."
 pubDate: "June 16 2025"
-heroImage: "/blog-placeholder-3.jpg"
+heroImage: "/post_1_thumb.png"
 ---
 
 # Whose Slave Are You?  
