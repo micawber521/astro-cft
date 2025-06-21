@@ -80,6 +80,8 @@ Ask yourself:
 You were made to serve—but not as a slave to sin.  
 You were made to serve a King who died to set you free.
 
-> **Choose today who you will serve.**
+> *"Choose you this day whom ye will serve;
+> as for me and my house, we will serve the Lord."*
+> — **Joshua 24:15 (KJV)**
 
 ---
