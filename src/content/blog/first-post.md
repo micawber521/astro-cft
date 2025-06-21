@@ -1,16 +1,88 @@
 ---
-title: "First post"
-description: "Lorem ipsum dolor sit amet"
-pubDate: "Jul 08 2022"
+title: "Whose Slave Are You? Understanding Romans 6:16"
+description: "Romans 6:16 reminds us we are never truly neutral—we serve something. Learn what it means to be a slave to righteousness and how obedience to God leads to true freedom."
+pubDate: new Date('2025-06-16')
+author: "Christian French"
+tags: ["Romans", "Devotion", "Discipleship", "Freedom", "New Testament"]
 heroImage: "/blog-placeholder-3.jpg"
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+# Whose Slave Are You?  
+### Understanding Romans 6:16
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+> *“Don’t you know that when you offer yourselves to someone as obedient slaves, you are slaves of the one you obey—whether you are slaves to sin, which leads to death, or to obedience, which leads to righteousness?”*  
+> — **Romans 6:16 (NIV)**
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+---
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+## The Choice We All Make
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+Whether we realize it or not, **every day we are submitting ourselves to something**—to habits, to thoughts, to desires, to influences. The Apostle Paul doesn’t mince words in Romans 6:16: we are either **slaves to sin**, which leads to **death**, or **slaves to obedience**, which leads to **righteousness**.
+
+It’s a strong word—*slave*. In modern times, we bristle at it. We prefer to think of ourselves as autonomous, free to do what we want. But the truth is, **we’re never truly free from influence**. We're always serving something or someone.
+
+---
+
+## ⚖️ Two Paths, Two Masters
+
+Romans 6 lays out a stark contrast:
+
+- **Sin leads to death.**  
+  Not just physical death, but spiritual deadness. A hardened heart. A life disconnected from the One who made us.
+
+- **Obedience to God leads to righteousness.**  
+  Not because we earn it, but because we align ourselves with the life and Spirit of Christ.
+
+This isn’t about behavior modification—it’s about **lordship**.  
+Who gets to be in charge of your life?
+
+---
+
+## No Neutral Ground
+
+We often like to think we can live in the “gray zone”—do a little of both. Go to church on Sunday, but live for ourselves the rest of the week.  
+But Romans 6:16 reminds us: **There is no neutral ground.**
+
+> You can’t serve both sin and God.  
+> One leads to bondage.  
+> The other leads to true freedom.
+
+---
+
+## The Beauty of Obedience
+
+Here’s the good news: **Obedience to God is not restrictive—it’s restorative.**
+
+It leads to peace, purpose, and power. It aligns us with the very design of our lives.  
+Jesus doesn’t just free us *from* sin—He frees us *for* something greater:  
+a life of righteousness, fruitfulness, and deep joy.
+
+---
+
+## Reflect
+
+Ask yourself:
+
+- What do I obey in my daily life—my impulses, my fears, the opinions of others?
+- What would it look like to truly offer myself to God in obedience?
+
+---
+
+## A Prayer
+
+> **“Lord, I don’t want to be a slave to sin.  
+> I offer myself to You today—my time, my choices, my desires.  
+> Help me walk in obedience, not out of duty, but out of love.  
+> Make me a servant of righteousness, for Your glory. Amen.”**
+
+---
+
+## 💬 Final Thought
+
+You were made to serve—but not as a slave to sin.  
+You were made to serve a King who died to set you free.
+
+> **Choose today who you will serve.**
+
+---
+
