@@ -68,10 +68,10 @@ Ask yourself:
 
 #### A Prayer
 
-> **“Lord, I don’t want to be a slave to sin.  
+> “Lord, I don’t want to be a slave to sin.  
 > I offer myself to You today—my time, my choices, my desires.  
 > Help me walk in obedience, not out of duty, but out of love.  
-> Make me a servant of righteousness, for Your glory. Amen.”**
+> Make me a servant of righteousness, for Your glory. Amen.”
 
 ---
 
