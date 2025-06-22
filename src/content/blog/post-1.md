@@ -21,7 +21,7 @@ It’s a strong word—*slave*. In modern times, we bristle at it. We prefer to 
 
 ---
 
-### ⚖️ Two Paths, Two Masters
+### Two Paths, Two Masters
 
 Romans 6 lays out a stark contrast:
 
@@ -75,7 +75,7 @@ Ask yourself:
 
 ---
 
-### 💬 Final Thought
+### Final Thought
 
 You were made to serve—but not as a slave to sin.  
 You were made to serve a King who died to set you free.
