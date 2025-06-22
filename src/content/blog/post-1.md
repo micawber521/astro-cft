@@ -5,15 +5,15 @@ pubDate: "June 16 2025"
 heroImage: "/post_1_thumb.png"
 ---
 
-## Whose Slave Are You?  
-#### Understanding Romans 6:16
+### Whose Slave Are You?  
+##### Understanding Romans 6:16
 
 > *“Don’t you know that when you offer yourselves to someone as obedient slaves, you are slaves of the one you obey—whether you are slaves to sin, which leads to death, or to obedience, which leads to righteousness?”*  
 > — **Romans 6:16 (NIV)**
 
 ---
 
-### The Choice We All Make
+#### The Choice We All Make
 
 Whether we realize it or not, **every day we are submitting ourselves to something**—to habits, to thoughts, to desires, to influences. The Apostle Paul doesn’t mince words in Romans 6:16: we are either **slaves to sin**, which leads to **death**, or **slaves to obedience**, which leads to **righteousness**.
 
@@ -21,7 +21,7 @@ It’s a strong word—*slave*. In modern times, we bristle at it. We prefer to 
 
 ---
 
-### Two Paths, Two Masters
+#### Two Paths, Two Masters
 
 Romans 6 lays out a stark contrast:
 
@@ -36,7 +36,7 @@ Who gets to be in charge of your life?
 
 ---
 
-### No Neutral Ground
+#### No Neutral Ground
 
 We often like to think we can live in the “gray zone”—do a little of both. Go to church on Sunday, but live for ourselves the rest of the week.  
 But Romans 6:16 reminds us: **There is no neutral ground.**
@@ -47,7 +47,7 @@ But Romans 6:16 reminds us: **There is no neutral ground.**
 
 ---
 
-### The Beauty of Obedience
+#### The Beauty of Obedience
 
 Here’s the good news: **Obedience to God is not restrictive—it’s restorative.**
 
@@ -57,7 +57,7 @@ a life of righteousness, fruitfulness, and deep joy.
 
 ---
 
-### Reflect
+#### Reflect
 
 Ask yourself:
 
@@ -66,7 +66,7 @@ Ask yourself:
 
 ---
 
-### A Prayer
+#### A Prayer
 
 > **“Lord, I don’t want to be a slave to sin.  
 > I offer myself to You today—my time, my choices, my desires.  
@@ -75,7 +75,7 @@ Ask yourself:
 
 ---
 
-### Final Thought
+#### Final Thought
 
 You were made to serve—but not as a slave to sin.  
 You were made to serve a King who died to set you free.
