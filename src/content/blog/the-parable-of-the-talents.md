@@ -1,11 +1,11 @@
 ---
-title: "Buried Treasure: What the Parable of the Talents Teaches About Kingdom Stewardship"
+title: "Don't Bury the Father's Treasure"
 description: "The Parable of the Talents isn't a warning against risk — it's a warning against fear. What God entrusts to you is meant to be put to work, not buried."
 pubDate: "July 20 2026"
 heroImage: "/blog-talents.png"
 ---
 
-### Buried Treasure
+### Don't Bury the Father's Treasure
 ##### What the Parable of the Talents Teaches About Kingdom Stewardship
 
 > *"For the kingdom of heaven is as a man travelling into a far country, who called his own servants, and delivered unto them his goods... After a long time the lord of those servants cometh, and reckoneth with them."*
