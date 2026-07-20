@@ -10,5 +10,8 @@
   "observability": {
     "enabled": true
   },
-  "upload_source_maps": true
+  "upload_source_maps": true,
+  "kv_namespaces": [
+    { "binding": "SUBSCRIBERS", "id": "5f8570d2f23343e3afb126fe1cc7c22a" }
+  ]
 }
