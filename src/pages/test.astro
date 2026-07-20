@@ -1,0 +1,22 @@
+---
+// Unlinked preview page — not referenced from nav or anywhere else.
+// Used to check how components actually render on the live site before
+// changes go anywhere real. Safe to leave in place; nothing links here.
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Test" description="Unlinked preview page" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<p style="text-align:center; padding: 4em 1em;">Preview page.</p>
+		</main>
+		<Footer />
+	</body>
+</html>

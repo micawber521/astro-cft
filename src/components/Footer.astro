@@ -3,6 +3,14 @@ const today = new Date();
 ---
 
 <footer>
+	<form action="/api/subscribe" method="POST" class="subscribe-form">
+		<label for="subscribe-email">Get new posts by email</label>
+		<div class="subscribe-row">
+			<input type="email" name="email" id="subscribe-email" placeholder="you@example.com" required />
+			<input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+			<button type="submit">Subscribe</button>
+		</div>
+	</form>
 	&copy; {today.getFullYear()} Christian French Trust. All rights reserved. Site powered by Astro, GitHub, and Cloudflare.
 	<div class="social-links">
 		<a href="https://m.webtoo.ls/@astro" target="_blank">
@@ -66,5 +74,50 @@ const today = new Date();
 	}
 	.social-links a:hover {
 		color: rgb(var(--gray-dark));
+	}
+	.subscribe-form {
+		max-width: 420px;
+		margin: 0 auto 1.5em auto;
+		text-align: center;
+	}
+	.subscribe-form label {
+		display: block;
+		font-weight: 700;
+		font-size: 0.85em;
+		margin-bottom: 0.5em;
+		color: rgb(var(--gray-dark));
+	}
+	.subscribe-row {
+		display: flex;
+		gap: 0.5em;
+		justify-content: center;
+	}
+	.subscribe-row input[type="email"] {
+		flex: 1;
+		min-width: 0;
+		padding: 0.5em 0.75em;
+		border: 1px solid rgb(var(--gray));
+		border-radius: 4px;
+		font-size: 0.9em;
+	}
+	.subscribe-row button {
+		background: #0e2c52;
+		color: #f5f0e6;
+		border: none;
+		border-radius: 4px;
+		padding: 0.5em 1em;
+		font-weight: 700;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+	.subscribe-row button:hover {
+		background: #16406f;
+	}
+	.hp-field {
+		position: absolute;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
 	}
 </style>
