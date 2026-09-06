@@ -1,0 +1,178 @@
+---
+// Standalone page — deliberately does NOT use ../layouts/BlogPost.astro.
+// This is CardProAI's privacy policy (an unrelated hobby card-reselling
+// tool), hosted here only because eBay's developer platform requires a
+// non-eBay URL for its OAuth app setup. Not a CFTrust page — no shared
+// header/footer/nav, not linked from anywhere on cftrust.org, excluded
+// from the sitemap (see astro.config.mjs). Christian, 2026-09-06.
+---
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="robots" content="noindex, nofollow" />
+	<title>CardProAI Privacy Policy</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--bg: #0d1117;
+			--surface: #161b22;
+			--border: #30363d;
+			--text: #c9d1d9;
+			--muted: #8b949e;
+			--accent: #58a6ff;
+			--accent-dim: #1f3a5f;
+		}
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			background: var(--bg);
+			color: var(--text);
+			font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+			line-height: 1.65;
+		}
+		.wrap {
+			max-width: 680px;
+			margin: 0 auto;
+			padding: 64px 24px 80px;
+		}
+		.eyebrow {
+			font-family: 'IBM Plex Mono', monospace;
+			font-size: 0.78rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: var(--accent);
+			margin: 0 0 10px;
+		}
+		h1 {
+			font-size: 2rem;
+			font-weight: 700;
+			margin: 0 0 6px;
+			text-wrap: balance;
+		}
+		.meta {
+			font-family: 'IBM Plex Mono', monospace;
+			font-size: 0.82rem;
+			color: var(--muted);
+			margin: 0 0 40px;
+			display: flex;
+			gap: 18px;
+			flex-wrap: wrap;
+		}
+		.meta span { white-space: nowrap; }
+		section {
+			border-top: 1px solid var(--border);
+			padding: 28px 0;
+		}
+		section:last-of-type { border-bottom: 1px solid var(--border); }
+		h2 {
+			font-size: 1.05rem;
+			font-weight: 600;
+			margin: 0 0 14px;
+			display: flex;
+			align-items: baseline;
+			gap: 10px;
+		}
+		h2 .num {
+			font-family: 'IBM Plex Mono', monospace;
+			font-size: 0.85rem;
+			color: var(--accent);
+			font-weight: 500;
+		}
+		p { margin: 0 0 12px; max-width: 62ch; }
+		p:last-child { margin-bottom: 0; }
+		ul { margin: 0 0 12px; padding-left: 22px; max-width: 62ch; }
+		li { margin-bottom: 6px; }
+		strong { color: #fff; font-weight: 600; }
+		.contact {
+			margin-top: 40px;
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 18px 20px;
+			font-family: 'IBM Plex Mono', monospace;
+			font-size: 0.88rem;
+		}
+		.contact .label { color: var(--muted); text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.06em; margin-bottom: 4px; }
+		.contact a { color: var(--accent); text-decoration: none; }
+		.contact a:hover { text-decoration: underline; }
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<p class="eyebrow">Privacy Policy</p>
+		<h1>CardProAI</h1>
+		<p class="meta">
+			<span>Effective 2026-09-06</span>
+			<span>Single-operator hobby tool</span>
+		</p>
+
+		<section>
+			<h2><span class="num">1</span>What this is</h2>
+			<p>
+				CardProAI is a personal inventory and listing tool built and operated
+				by one individual for their own sports-card reselling hobby. It is not
+				a public service, does not have user accounts, and does not process
+				data on behalf of any third party. It connects to the operator's own
+				eBay seller account, using eBay's own APIs under an authorization the
+				operator grants themselves, to help create and manage the operator's
+				own eBay listings.
+			</p>
+		</section>
+
+		<section>
+			<h2><span class="num">2</span>Information we access</h2>
+			<p>Limited strictly to the operator's own eBay seller account, and only what's needed to build listings:</p>
+			<ul>
+				<li>Inventory and listing data the operator creates (item titles, prices, photos, quantities)</li>
+				<li>The operator's existing eBay business policies (payment, return, and shipping/fulfillment) and merchant inventory location, so new listings can reference them</li>
+			</ul>
+			<p>No data belonging to eBay buyers, other sellers, or any third party is ever accessed.</p>
+		</section>
+
+		<section>
+			<h2><span class="num">3</span>What we do not collect</h2>
+			<ul>
+				<li>No account registration, no cookies, no visitor tracking or analytics on this page</li>
+				<li>No data from eBay buyers or any other eBay user</li>
+				<li>No data is sold, rented, or shared with advertisers or any third party</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2><span class="num">4</span>How information is used</h2>
+			<p>
+				Solely to build and manage listing drafts on the operator's own eBay
+				seller account. Every listing created is saved as a draft for the
+				operator to review — nothing is published or activated automatically.
+			</p>
+		</section>
+
+		<section>
+			<h2><span class="num">5</span>Data storage &amp; security</h2>
+			<p>
+				All data stays on infrastructure the operator personally owns and
+				controls. Access credentials are stored in a self-hosted, encrypted
+				credential vault, never in plain text, and are never transmitted
+				anywhere outside calls to eBay's own APIs.
+			</p>
+		</section>
+
+		<section>
+			<h2><span class="num">6</span>Changes to this policy</h2>
+			<p>
+				This policy may be updated as CardProAI's use of eBay's APIs
+				changes. The effective date above reflects the most recent revision.
+			</p>
+		</section>
+
+		<div class="contact">
+			<div class="label">Contact</div>
+			<a href="mailto:info@csusportscards.com">info@csusportscards.com</a>
+		</div>
+	</div>
+</body>
+</html>
