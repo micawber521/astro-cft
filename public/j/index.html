@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Journal Scan</title>
+<!-- TEMPORARY https test (2026-10-08) for the Bible journal's per-page QR scan
+     (projects/bible_journal). Not a CFTrust page: unlinked, noindex, moving to
+     its own site. QR → /j/?VOL-DAY. Everything runs on the reader's phone:
+     no uploads, nothing stored. Readings deliberately not shown (keeps the
+     reading plan off the public web). -->
+<style>
+  :root { --bg:#faf7f0; --ink:#2b2620; --muted:#7a7064; --accent:#7a4e2d; --line:#e2d9c8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 Georgia, serif; }
+  main { max-width:520px; margin:0 auto; padding:20px 16px 48px; }
+  h1 { font-size:1.4em; margin:0 0 2px; }
+  .sub { color:var(--muted); font-size:.9em; margin-bottom:18px; }
+  button, label.btn { display:block; width:100%; text-align:center; padding:14px; margin:10px 0; border-radius:8px;
+    border:none; font:inherit; font-size:1.05em; cursor:pointer; background:var(--accent); color:#fff; }
+  button.secondary, label.secondary { background:#fff; color:var(--accent); border:2px solid var(--accent); }
+  button.small, label.small { padding:9px; font-size:.9em; }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  input[type=file] { display:none; }
+  .hidden { display:none !important; }
+  #livewrap { position:relative; border-radius:8px; overflow:hidden; background:#000; }
+  #video { width:100%; display:block; }
+  #overlay { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  #livehint { text-align:center; color:var(--muted); font-size:.95em; margin-top:8px; min-height:1.5em; }
+  #preview { width:100%; border-radius:8px; border:1px solid var(--line); margin-top:4px; }
+  #modes { display:flex; gap:6px; margin-top:10px; }
+  #modes button { margin:0; padding:9px; font-size:.9em; }
+  #fname { font-family:monospace; font-size:.85em; color:var(--accent); word-break:break-all; margin-top:6px; }
+  #status { color:var(--muted); font-size:.9em; min-height:1.5em; }
+  .perm { border:1px solid #d9b9a0; background:#fff6ee; border-radius:8px; padding:12px 14px; font-size:.92em; margin:12px 0; }
+  .perm b { display:block; margin-bottom:4px; }
+  .perm ol { margin:6px 0 0; padding-left:20px; }
+  details { margin-top:28px; font-size:.8em; color:var(--muted); }
+  details pre { white-space:pre-wrap; word-break:break-all; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">Journal</h1>
+  <div class="sub">Bible Reading Journal · scan test</div>
+
+  <div id="perm" class="perm hidden"></div>
+
+  <section id="start">
+    <button id="go">📷 Scan my notes page</button>
+    <label class="btn secondary small" for="cam">Use the camera app instead</label>
+    <input id="cam" type="file" accept="image/*" capture="environment">
+    <label class="btn secondary small" for="pick">Use a photo I already took</label>
+    <input id="pick" type="file" accept="image/*">
+  </section>
+
+  <section id="live" class="hidden">
+    <div id="livewrap"><video id="video" playsinline muted autoplay></video><canvas id="overlay"></canvas></div>
+    <div id="livehint">Starting camera…</div>
+    <button id="snap" class="secondary">Snap now</button>
+    <button id="cancel" class="secondary small">Cancel</button>
+  </section>
+
+  <section id="result" class="hidden">
+    <img id="preview" alt="">
+    <div id="modes" class="hidden"></div>
+    <div id="fname"></div>
+    <button id="save">Save to my phone</button>
+    <button id="share" class="secondary">Share to my group</button>
+    <button id="again" class="secondary small">Scan again</button>
+  </section>
+
+  <div id="status"></div>
+  <details><summary>Test details</summary><pre id="diag"></pre></details>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/jscanify@1.4.2/src/jscanify.js"></script>
+<script>
+const m = location.search.match(/(\d+)-(\d+)/);
+const v = m ? +m[1] : 1, d = m ? +m[2] : 1;
+const pad = String(d).padStart(3, '0');
+const $ = id => document.getElementById(id);
+const status = t => $('status').textContent = t;
+let file = null, stream = null, liveTimer = null, liveNote = 'not started';
+$('title').textContent = `Vol ${v} · Day ${d}`;
+const diag = () => $('diag').textContent = [
+  `secure context (HTTPS): ${window.isSecureContext}`,
+  `live camera API: ${!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)}`,
+  `live camera: ${liveNote}`,
+  `share API: ${!!navigator.share}`,
+  `can share files: ${file && navigator.canShare ? navigator.canShare({ files: [file] }) : 'n/a'}`,
+  `named file: ${file ? file.name + ' (' + Math.round(file.size / 1024) + ' KB, ' + file.type + ')' : 'none yet'}`,
+  `auto-crop: ${typeof cropInfo === 'undefined' ? 'not run' : cropInfo}`,
+  `browser: ${navigator.userAgent}`,
+].join('\n');
+diag();
+const section = which => ['start', 'live', 'result'].forEach(s => $(s).classList.toggle('hidden', s !== which));
+
+  // ── Auto-crop (2026-10-08): find the page's thick black border, straighten
+  // and crop to it, like Rocketbook. All on the phone (OpenCV.js + jscanify);
+  // the original stays one tap away in case detection misses.
+  const fname = `BibleJournal_Vol${v}_Day${pad}.jpg`;
+  var variants = {}, original = null, showing = 'clean', cropInfo = 'not run'; // var: diag() reads cropInfo before this line runs
+  const LABELS = { clean: 'Clean', scan: 'Scan look', original: 'Original' };
+  let cvReady = null;
+  const loadCV = () => cvReady || (cvReady = new Promise((res, rej) => {
+    const sc = document.createElement('script');
+    sc.src = 'https://docs.opencv.org/4.7.0/opencv.js';
+    sc.onload = () => { if (window.cv && cv.Mat) res(); else cv.onRuntimeInitialized = res; };
+    sc.onerror = () => rej(new Error('could not load OpenCV'));
+    document.head.appendChild(sc);
+  }));
+  const loadImg = blob => new Promise((res, rej) => {
+    const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = URL.createObjectURL(blob);
+  });
+  const toFile = canvas => new Promise(res => canvas.toBlob(b => res(new File([b], fname, { type: 'image/jpeg' })), 'image/jpeg', 0.9));
+
+  window.cropNotes = async (img) => {
+    await loadCV();
+    // phone photos are ~12MP — detect on a ≤1600px copy, then crop from it
+    const k = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+    const work = document.createElement('canvas');
+    work.width = Math.round(img.naturalWidth * k); work.height = Math.round(img.naturalHeight * k);
+    work.getContext('2d').drawImage(img, 0, 0, work.width, work.height);
+    const scanner = new jscanify();
+    const mat = cv.imread(work);
+    const contour = scanner.findPaperContour(mat);
+    let out = null;
+    if (contour && cv.contourArea(contour) > 0.2 * work.width * work.height) {
+      const c = scanner.getCornerPoints(contour, mat);
+      if (c.topLeftCorner && c.topRightCorner && c.bottomLeftCorner && c.bottomRightCorner) {
+        const d = (p, q) => Math.hypot(p.x - q.x, p.y - q.y);
+        const w = (d(c.topLeftCorner, c.topRightCorner) + d(c.bottomLeftCorner, c.bottomRightCorner)) / 2;
+        const h = (d(c.topLeftCorner, c.bottomLeftCorner) + d(c.topRightCorner, c.bottomRightCorner)) / 2;
+        const H = 1800, W = Math.round(H * w / h);
+        out = scanner.extractPaper(work, W, H, c);
+        cropInfo = `found ${Math.round(w)}×${Math.round(h)} quad, ${Math.round(cv.contourArea(contour) / (work.width * work.height) * 100)}% of frame`;
+      }
+    } else cropInfo = contour ? 'largest outline too small, no border found' : 'no outline found';
+    mat.delete();
+    // Pass 2: if pass 1 caught the paper's edge (whole sheet on a table), the
+    // black border is the biggest outline inside it — crop again to that.
+    if (out) {
+      const m2 = cv.imread(out);
+      const c2 = scanner.findPaperContour(m2);
+      const frac = c2 ? cv.contourArea(c2) / (out.width * out.height) : 0;
+      if (frac > 0.4 && frac < 0.93) {
+        const p = scanner.getCornerPoints(c2, m2);
+        if (p.topLeftCorner && p.topRightCorner && p.bottomLeftCorner && p.bottomRightCorner) {
+          const d2 = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+          const w2 = (d2(p.topLeftCorner, p.topRightCorner) + d2(p.bottomLeftCorner, p.bottomRightCorner)) / 2;
+          const h2 = (d2(p.topLeftCorner, p.bottomLeftCorner) + d2(p.topRightCorner, p.bottomRightCorner)) / 2;
+          out = scanner.extractPaper(out, Math.round(1800 * w2 / h2), 1800, p);
+          cropInfo += `; border pass 2: ${Math.round(frac * 100)}% of page`;
+        }
+      } else cropInfo += `; pass 2 skipped (${Math.round(frac * 100)}%)`;
+      if (c2) c2.delete();
+      m2.delete();
+    }
+    return out;
+  };
+
+  // Shadow cleanup: estimate the page's lighting by dilating away ink/lines
+  // and median-blurring, then divide it out — page goes evenly white, ink
+  // stays dark. 'clean' keeps pen colour; 'scan' is high-contrast grey.
+  window.enhanceNotes = (canvas, mode) => {
+    const src = cv.imread(canvas);
+    const k = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(9, 9));
+    const flatten = plane => {
+      const bg = new cv.Mat(), o = new cv.Mat();
+      cv.dilate(plane, bg, k);
+      cv.medianBlur(bg, bg, 31);
+      cv.divide(plane, bg, o, 255);
+      bg.delete();
+      return o;
+    };
+    let result;
+    if (mode === 'scan') {
+      const g = new cv.Mat();
+      cv.cvtColor(src, g, cv.COLOR_RGBA2GRAY);
+      result = flatten(g);
+      result.convertTo(result, -1, 2.125, -212.5); // stretch 100–220 → 0–255
+      g.delete();
+    } else {
+      const rgb = new cv.Mat(), planes = new cv.MatVector(), outs = new cv.MatVector();
+      cv.cvtColor(src, rgb, cv.COLOR_RGBA2RGB);
+      cv.split(rgb, planes);
+      const made = [0, 1, 2].map(i => flatten(planes.get(i)));
+      made.forEach(m => outs.push_back(m));
+      result = new cv.Mat();
+      cv.merge(outs, result);
+      made.forEach(m => m.delete()); rgb.delete(); planes.delete(); outs.delete();
+    }
+    const c = document.createElement('canvas');
+    cv.imshow(c, result);
+    src.delete(); k.delete(); result.delete();
+    return c;
+  };
+
+
+  // ── Result view: Clean / Scan look / Original ────────────────────────────
+  const show = which => {
+    showing = which;
+    file = variants[which] || original;
+    $('preview').src = URL.createObjectURL(file);
+    const opts = Object.keys(variants);
+    $('modes').classList.toggle('hidden', opts.length < 2);
+    $('modes').innerHTML = opts.map(k => `<button data-m="${k}" class="${k === which ? '' : 'secondary'}">${LABELS[k]}</button>`).join('');
+    $('modes').querySelectorAll('button').forEach(bt => bt.onclick = () => show(bt.dataset.m));
+    $('fname').textContent = file.name;
+    $('share').disabled = !(navigator.canShare && navigator.canShare({ files: [file] }));
+    diag();
+  };
+
+  const processPhoto = async blob => {
+    original = new File([blob], fname, { type: blob.type || 'image/jpeg' });
+    variants = {};
+    section('result');
+    $('preview').src = URL.createObjectURL(original);
+    $('save').disabled = $('share').disabled = true;
+    status('Finding the page border…');
+    try {
+      const canvas = await window.cropNotes(await loadImg(original));
+      if (canvas) {
+        status('Cleaning up shadows…');
+        await new Promise(r => setTimeout(r, 30));
+        variants.clean = await toFile(window.enhanceNotes(canvas, 'clean'));
+        variants.scan = await toFile(window.enhanceNotes(canvas, 'scan'));
+        status('Cropped and cleaned. Pick a look, or Original if the crop is off.');
+      } else status('Couldn’t find the border — keeping the original photo.');
+    } catch (err) { cropInfo = 'error: ' + err.message; status('Cropper failed — keeping the original photo.'); }
+    variants.original = original;
+    show(variants.clean ? 'clean' : 'original');
+    $('save').disabled = false;
+  };
+
+  // ── Camera permission help ───────────────────────────────────────────────
+  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  const showPerm = why => {
+    $('perm').innerHTML = `<b>${why}</b>` + (isIOS
+      ? `<ol><li>Tap <b>aA</b> in Safari’s address bar → <b>Website Settings</b> → <b>Camera</b> → <b>Allow</b>.</li>
+         <li>If that’s not there: <b>Settings</b> → <b>Safari</b> (or your browser) → <b>Camera</b> → <b>Allow</b>.</li>
+         <li>Come back here and tap <b>Scan my notes page</b> again.</li></ol>`
+      : `<ol><li>Tap the icon left of the web address → <b>Permissions</b> (or <b>Site settings</b>) → <b>Camera</b> → <b>Allow</b>.</li>
+         <li>If it’s still blocked: <b>Settings</b> → <b>Apps</b> → your browser → <b>Permissions</b> → <b>Camera</b> → <b>Allow</b>.</li>
+         <li>Come back here and tap <b>Scan my notes page</b> again.</li></ol>`);
+    $('perm').classList.remove('hidden');
+  };
+  (async () => {
+    try {
+      const p = await navigator.permissions.query({ name: 'camera' });
+      const upd = () => { if (p.state === 'denied') showPerm('Camera access is turned off for this browser.'); else $('perm').classList.add('hidden'); };
+      upd(); p.onchange = upd;
+    } catch (e) { /* not supported (older iPhones) — we find out when the camera starts */ }
+  })();
+
+  // ── Live camera + auto-snap ──────────────────────────────────────────────
+  // Watches a small copy of the video for the page's black border; once the
+  // outline holds still for ~1s it grabs a full-resolution frame.
+  const video = $('video'), overlay = $('overlay');
+  const stopLive = () => {
+    clearInterval(liveTimer); liveTimer = null;
+    if (stream) stream.getTracks().forEach(t => t.stop());
+    stream = null;
+  };
+  const captureFrame = async () => {
+    const c = document.createElement('canvas');
+    c.width = video.videoWidth; c.height = video.videoHeight;
+    c.getContext('2d').drawImage(video, 0, 0);
+    stopLive();
+    const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.92));
+    await processPhoto(blob);
+  };
+  const startLive = async () => {
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
+      liveNote = 'no camera API (needs HTTPS)'; diag();
+      showPerm('This browser can’t open the camera inside the page — use “camera app instead”.'); return;
+    }
+    $('perm').classList.add('hidden');
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: false,
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 3840 }, height: { ideal: 2160 } } });
+    } catch (err) {
+      liveNote = 'blocked: ' + err.name; diag();
+      showPerm(err.name === 'NotAllowedError' ? 'Camera access is blocked.' : 'Couldn’t start the camera (' + err.name + ').');
+      return;
+    }
+    section('live'); status('');
+    video.srcObject = stream;
+    await video.play();
+    liveNote = `running ${video.videoWidth}×${video.videoHeight}`; diag();
+    $('livehint').textContent = 'Loading page finder…';
+    try { await loadCV(); } catch (e) { $('livehint').textContent = 'Page finder didn’t load — tap Snap now.'; return; }
+    $('livehint').textContent = 'Point at your notes page — fit the black border in view.';
+    const scanner = new jscanify();
+    const small = document.createElement('canvas');
+    let last = null, steady = 0;
+    liveTimer = setInterval(() => {
+      if (!video.videoWidth) return;
+      const k = 640 / Math.max(video.videoWidth, video.videoHeight);
+      small.width = Math.round(video.videoWidth * k); small.height = Math.round(video.videoHeight * k);
+      small.getContext('2d').drawImage(video, 0, 0, small.width, small.height);
+      const mat = cv.imread(small);
+      const contour = scanner.findPaperContour(mat);
+      let pts = null;
+      if (contour && cv.contourArea(contour) > 0.25 * small.width * small.height) {
+        const c = scanner.getCornerPoints(contour, mat);
+        if (c.topLeftCorner && c.topRightCorner && c.bottomLeftCorner && c.bottomRightCorner)
+          pts = [c.topLeftCorner, c.topRightCorner, c.bottomRightCorner, c.bottomLeftCorner];
+      }
+      if (contour) contour.delete();
+      mat.delete();
+      overlay.width = overlay.clientWidth; overlay.height = overlay.clientHeight;
+      const g = overlay.getContext('2d'); g.clearRect(0, 0, overlay.width, overlay.height);
+      if (!pts) { steady = 0; last = null; $('livehint').textContent = 'Point at your notes page — fit the black border in view.'; return; }
+      const sx = overlay.width / small.width, sy = overlay.height / small.height;
+      const moved = last ? Math.max(...pts.map((p, i) => Math.hypot(p.x - last[i].x, p.y - last[i].y))) / small.width : 1;
+      steady = moved < 0.02 ? steady + 1 : 0;
+      last = pts;
+      g.lineWidth = 4; g.strokeStyle = steady >= 2 ? '#2e9e4f' : '#e0a030';
+      g.beginPath(); pts.forEach((p, i) => g[i ? 'lineTo' : 'moveTo'](p.x * sx, p.y * sy)); g.closePath(); g.stroke();
+      $('livehint').textContent = steady >= 2 ? 'Hold still…' : 'Found it — hold steady.';
+      if (steady >= 3) { $('livehint').textContent = 'Got it!'; captureFrame(); }
+    }, 350);
+  };
+
+  $('go').onclick = startLive;
+  $('snap').onclick = () => { if (video.videoWidth) captureFrame(); };
+  $('cancel').onclick = () => { stopLive(); section('start'); };
+  $('again').onclick = () => { section('start'); status(''); };
+  const onPicked = e => { const f = e.target.files[0]; e.target.value = ''; if (f) processPhoto(f); };
+  $('cam').addEventListener('change', onPicked);
+  $('pick').addEventListener('change', onPicked);
+  $('save').onclick = () => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(file); a.download = file.name;
+    document.body.appendChild(a); a.click(); a.remove();
+    status(`Saved as ${file.name}.`);
+  };
+  $('share').onclick = async () => {
+    try { await navigator.share({ files: [file], title: `Vol ${v} Day ${d} notes` }); status('Shared.'); }
+    catch (err) { if (err.name !== 'AbortError') status('Share failed: ' + err.message); }
+  };
+</script>
+</body>
+</html>
