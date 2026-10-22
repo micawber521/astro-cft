@@ -14,7 +14,7 @@ export default defineConfig({
     // hosted here temporarily for an eBay developer app requirement, not a
     // CFTrust page — kept out of the sitemap and unlinked from nav (Christian,
     // 2026-09-06), reachable only by direct URL.
-    sitemap({ filter: (page) => !page.includes("/privacy-cardproai") }),
+    sitemap({ filter: (page) => !page.includes("/privacy-cardproai") && !page.includes("/privacy-gordon-backup") }),
   ],
   adapter: cloudflare({
     platformProxy: {
