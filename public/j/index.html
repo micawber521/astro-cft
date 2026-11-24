@@ -4,10 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Journal Scan</title>
-<!-- TEMPORARY https test (2026-10-08) for the Bible journal's per-page QR scan
-     (projects/bible_journal). Not a CFTrust page: unlinked, noindex, moving to
-     its own site. QR → /j/?VOL-DAY. Everything runs on the reader's phone:
+<title>Time with the Father · Scan your notes</title>
+<!-- Scan page for the Bible journal's per-page QR (projects/bible_journal).
+     Built as a test 2026-10-08; made the permanent home 2026-11-24 (Christian:
+     stays on cftrust.org, a dedicated domain later just forwards here, so
+     printed codes keep working). Not a CFTrust page: unlinked, noindex.
+     QR → /j/?VOL-DAY. Everything runs on the reader's phone:
      no uploads, nothing stored. Readings deliberately not shown (keeps the
      reading plan off the public web). -->
 <style>
@@ -43,7 +45,7 @@
 <body>
 <main>
   <h1 id="title">Journal</h1>
-  <div class="sub">Bible Reading Journal · scan test</div>
+  <div class="sub">Time with the Father · scan your notes page</div>
 
   <div id="perm" class="perm hidden"></div>
 
@@ -72,7 +74,7 @@
   </section>
 
   <div id="status"></div>
-  <details><summary>Test details</summary><pre id="diag"></pre></details>
+  <pre id="diag" hidden></pre><!-- device diagnostics; unhide when troubleshooting -->
 </main>
 <script src="https://cdn.jsdelivr.net/npm/jscanify@1.4.2/src/jscanify.js"></script>
 <script>
